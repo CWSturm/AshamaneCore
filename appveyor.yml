@@ -1,0 +1,46 @@
+sudo: false
+dist: trusty
+
+language: cpp
+compiler:
+  - clang
+
+git:
+  depth: 1
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - sourceline: 'ppa:kzemek/boost'
+    packages:
+      - g++-6
+      - libboost1.67-dev
+      - libboost-filesystem1.67-dev
+      - libboost-iostreams1.67-dev
+      - libboost-program-options1.67-dev
+      - libboost-regex1.67-dev
+      - libboost-system1.67-dev
+      - libboost-thread1.67-dev
+      - libssl-dev
+      - libmysqlclient-dev
+      - libreadline6-dev
+      - zlib1g-dev
+      - libbz2-dev
+
+services:
+  - mysql
+
+before_install:
+  - git config user.email "appveyor@build.bot" && git config user.name "Appveyor CI"
+  - git tag -a -m "Appveyor build" init
+
+install:
+
+script:
+mkdir build && cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=/home/$USER/projects/ashamanecore -DWITH_WARNINGS=0 -DWITH_COREDEBUG=0 -DUSE_COREPCH=1 -DUSE_SCRIPTPCH=1 -DTOOLS=1 -DSCRIPTS=static -DSERVERS=1 -DCMAKE_BUILD_TYPE=Release
+make -j 16 -k && make install
+cd /home/appveyor/projects/ashamanecore/bin
+./bnetserver --version
+./worldserver --version
