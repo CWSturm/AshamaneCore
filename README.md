@@ -16,7 +16,7 @@
 
 
 ## Build Status
-[![Build status](http://paivansade.org:8050/api/projects/status/p64alvdaglj13ibq?svg=true)](http://paivansade.org:8050/project/AppVeyor/ashamanecore)
+[![Build status](http://paivansade.org:8050/api/projects/status/imp5e5d6sultbjuu?svg=true)](http://paivansade.org:8050/project/AppVeyor/ashamanecore)
 
 ## Introduction
 
